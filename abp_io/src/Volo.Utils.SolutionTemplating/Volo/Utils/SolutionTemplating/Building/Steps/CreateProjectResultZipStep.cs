@@ -1,4 +1,5 @@
-﻿using Ionic.Zip;
+﻿using System.IO;
+using  System.IO.Compression;
 using Volo.Utils.SolutionTemplating.Files;
 using Volo.Utils.SolutionTemplating.Zipping;
 
@@ -13,10 +14,14 @@ namespace Volo.Utils.SolutionTemplating.Building.Steps
 
         private static byte[] CreateZipFileFromEntries(FileEntryList entries)
         {
-            using (var resultZipFile = new ZipFile())
+            using (var stream = new MemoryStream())
             {
-                entries.CopyToZipFile(resultZipFile);
-                return resultZipFile.GetBytes();
+                using (var resultZipFile = new ZipArchive(stream,ZipArchiveMode.Create))
+                {
+                    entries.CopyToZipFile(resultZipFile);
+                   
+                }
+                return stream.ToArray();
             }
         }
     }

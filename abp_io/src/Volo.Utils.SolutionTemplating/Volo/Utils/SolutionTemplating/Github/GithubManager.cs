@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Volo.Abp.Threading;
 using Volo.Utils.SolutionTemplating.Building;
@@ -60,7 +61,7 @@ namespace Volo.Utils.SolutionTemplating.Github
                     }
 
                     var downloadUrl = "https://github.com/" + context.Template.GithubRepository.RepositoryNameWithOrganization + "/archive/" + context.Template.Version + ".zip";
-
+                   
                     var credentials = string.Format(System.Globalization.CultureInfo.InvariantCulture, "{0}:", context.Template.GithubRepository.AccessToken);
                     credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes(credentials));
 

@@ -1,6 +1,6 @@
 ﻿using System.IO;
-using Ionic.Zip;
 using Volo.Utils.SolutionTemplating.Files;
+using System.IO.Compression;
 using Volo.Utils.SolutionTemplating.Zipping;
 
 namespace Volo.Utils.SolutionTemplating.Building.Steps
@@ -34,19 +34,23 @@ namespace Volo.Utils.SolutionTemplating.Building.Steps
         {
             using (var templateFileStream = File.OpenRead(filePath))
             {
-                using (var templateZipFile = ZipFile.Read(templateFileStream))
+       
+                using (var archive = new ZipArchive(templateFileStream, ZipArchiveMode.Read))
                 {
-                    return templateZipFile.ToFileEntryList(rootFolder);
+                   
+                    return archive.ToFileEntryList(rootFolder);
                 }
             }
         }
 
         private static void SaveCachedEntries(string filePath, FileEntryList entries)
         {
-            using (var resultZipFile = new ZipFile())
+            using (var stream = new FileStream(filePath,FileMode.Create))
             {
-                entries.CopyToZipFile(resultZipFile);
-                resultZipFile.Save(filePath);
+                using (var resultZipFile = new ZipArchive(stream, ZipArchiveMode.Create))
+                {
+                    entries.CopyToZipFile(resultZipFile);
+                }
             }
         }
 

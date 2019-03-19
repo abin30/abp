@@ -10,10 +10,10 @@ namespace Volo.Utils.SolutionTemplating.Building
 
             pipeline.Steps.Add(new GithubDownloadStep());
             pipeline.Steps.Add(new FileEntryListReadStep());
-            pipeline.Steps.AddRange(context.Template.GetCustomSteps(context));
-            pipeline.Steps.Add(new NugetReferenceReplaceStep());
-            pipeline.Steps.Add(new TemplateCodeDeleteStep());
-            pipeline.Steps.Add(new SolutionRenameStep());
+            //pipeline.Steps.AddRange(context.Template.GetCustomSteps(context));
+            //pipeline.Steps.Add(new NugetReferenceReplaceStep());
+            //pipeline.Steps.Add(new TemplateCodeDeleteStep());
+            //pipeline.Steps.Add(new SolutionRenameStep());
             pipeline.Steps.Add(new CreateProjectResultZipStep());
 
             return pipeline;

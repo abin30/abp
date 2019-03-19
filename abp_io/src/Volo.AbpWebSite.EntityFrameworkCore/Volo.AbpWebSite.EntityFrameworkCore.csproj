@@ -11,17 +11,24 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Volo.Abp.Core" Version="0.14.0" />
+    <PackageReference Include="Volo.Abp.EntityFrameworkCore" Version="0.14.0" />
+    <PackageReference Include="Volo.Abp.EntityFrameworkCore.SqlServer" Version="0.14.0" />
+    <PackageReference Include="Volo.Abp.Identity.EntityFrameworkCore" Version="0.14.0" />
+    <PackageReference Include="Volo.Abp.PermissionManagement.EntityFrameworkCore" Version="0.14.0" />
+    <PackageReference Include="Volo.Abp.SettingManagement.EntityFrameworkCore" Version="0.14.0" />
+    <PackageReference Include="Volo.Blogging.EntityFrameworkCore" Version="0.14.0" />
+    <PackageReference Include="Volo.Docs.EntityFrameworkCore" Version="0.14.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Volo.AbpWebSite.Domain\Volo.AbpWebSite.Domain.csproj" />
-    <ProjectReference Include="..\..\..\framework\src\Volo.Abp.EntityFrameworkCore.SqlServer\Volo.Abp.EntityFrameworkCore.SqlServer.csproj" />
-    <ProjectReference Include="..\..\..\modules\identity\src\Volo.Abp.Identity.EntityFrameworkCore\Volo.Abp.Identity.EntityFrameworkCore.csproj" />
-    <ProjectReference Include="..\..\..\modules\permission-management\src\Volo.Abp.PermissionManagement.EntityFrameworkCore\Volo.Abp.PermissionManagement.EntityFrameworkCore.csproj" />
-    <ProjectReference Include="..\..\..\modules\setting-management\src\Volo.Abp.SettingManagement.EntityFrameworkCore\Volo.Abp.SettingManagement.EntityFrameworkCore.csproj" />
-    <ProjectReference Include="..\..\..\modules\docs\src\Volo.Docs.EntityFrameworkCore\Volo.Docs.EntityFrameworkCore.csproj" />
-    <ProjectReference Include="..\..\..\modules\blogging\src\Volo.Blogging.EntityFrameworkCore\Volo.Blogging.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\Volo.Utils.SolutionTemplating\Volo.Utils.SolutionTemplating.csproj" />
   </ItemGroup>
 
 </Project>

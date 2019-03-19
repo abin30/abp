@@ -1,55 +1,59 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Net;
-using Ionic.Zip;
-using Volo.Utils.SolutionTemplating.Files;
+ using Volo.Utils.SolutionTemplating.Files;
 
 namespace Volo.Utils.SolutionTemplating.Zipping
 {
     public static class ZipFileExtensions
     {
-        public static byte[] GetBytes(this ZipFile zipFile)
+        public static byte[] GetBytes(this ZipArchiveEntry zipFile)
         {
             using (var ms = new MemoryStream())
             {
-                zipFile.Save(ms);
-                return ms.ToArray();
+                using (var stream = zipFile.Open())
+                {
+                      stream.CopyTo(ms);
+                      return  ms.ToArray();
+                }
             }
         }
 
-        public static FileEntryList ToFileEntryList(this ZipFile zipFile, string rootFolder = null)
+        public static bool IsDirectory(this ZipArchiveEntry ZipFile)
         {
-            var zipEntries = zipFile.Entries;
+            return ZipFile.FullName.EndsWith("/");
+        }
+        public static FileEntryList ToFileEntryList(this ZipArchive zipFile, string rootFolder = null)
+        {
+            var zipEntries = zipFile.Entries.ToList();
 
             if (rootFolder != null)
             {
-                zipEntries = zipEntries.Where(entry => entry.FileName.StartsWith(rootFolder)).ToList();
+                zipEntries = zipFile.Entries.Where(entry => 
+                entry.FullName.StartsWith(rootFolder)).ToList();
             }
 
             var fileEntries = new List<FileEntry>();
 
             foreach (var zipEntry in zipEntries)
             {
-                using (var entryStream = zipEntry.OpenReader())
+
+
+                var fileName = zipEntry.FullName;
+
+                if (rootFolder != null)
                 {
-                    var fileName = zipEntry.FileName;
-
-                    if (rootFolder != null)
-                    {
-                        fileName = fileName.RemovePreFix(rootFolder);
-                    }
-
-                    if (fileName.IsNullOrEmpty())
-                    {
-                        continue;
-                    }
-
-                    fileName = fileName.EnsureStartsWith('/');
-                    
-                    fileEntries.Add(new FileEntry(fileName, entryStream.GetAllBytes(), zipEntry.IsDirectory));
+                     fileName = fileName.RemovePreFix(rootFolder);
                 }
+
+                if (fileName.IsNullOrEmpty())
+                {
+                    continue;
+                }
+            fileEntries.Add(new FileEntry(fileName, zipEntry.GetBytes(), zipEntry.IsDirectory())); 
             }
 
             return new FileEntryList(fileEntries);
