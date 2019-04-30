@@ -79,7 +79,7 @@
 * **推荐** 创建命名为*CompanyName.ModuleName.HttpApi*的**HTTP API**包, 为模块开发REST风格的HTTP API.
   * HTTP API package 只依赖于 **Application.Contracts** package. 不要依赖 Application package.
   * **推荐** 为每个应用服务创建一个Controller (通常通过实现其接口). 这些控制器使用应用服务接口来委托操作. 它根据需要配置路由, HTTP方法和其他与Web相关的东西.
-* **推荐** 创建一个为HTTP API包提供客户端服务的**HTTP API Client**包, 它的命名为*companyname.modulename.httpapi*. 这些客户端服务将应用服务接口实现远程端点的客户端.
+* **推荐** 创建一个为HTTP API包提供客户端服务的**HTTP API Client**包, 它的命名为*CompanyName.ModuleName.HttpApi.Client*. 这些客户端服务将应用服务接口实现远程端点的客户端.
   * HTTP API Client package 仅依赖于 **Application.Contracts** package.
   * **推荐** 使用ABP框架提供的动态代理HTTP C＃客户端的功能.
 
